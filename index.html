@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Primary Meta Tags -->
+    <title>SERVER DEV - Desenvolvimento de Bots Discord, Sites e Servidores | Soluções Tech Premium</title>
+    <meta name="title" content="SERVER DEV - Desenvolvimento de Bots Discord, Sites e Servidores">
+    <meta name="description"
+        content="Transforme suas ideias em realidade digital. Desenvolvemos bots Discord personalizados, sites modernos responsivos e servidores cloud escaláveis. Mais de 100 clientes satisfeitos. Comece seu projeto hoje!">
+    <meta name="keywords"
+        content="bot discord, desenvolvimento web, servidor cloud, site responsivo, discord bot brasil, desenvolvimento de bots, hospedagem servidor, desenvolvimento full stack">
+    <meta name="author" content="SERVER DEV">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://serverdev.com/">
+    <meta property="og:title" content="SERVER DEV - Desenvolvimento de Bots Discord, Sites e Servidores">
+    <meta property="og:description"
+        content="Transforme suas ideias em realidade digital. Bots inteligentes, sites modernos e servidores robustos.">
+    <meta property="og:image" content="serverdev-logo-1.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://serverdev.com/">
+    <meta property="twitter:title" content="SERVER DEV - Desenvolvimento Tech Premium">
+    <meta property="twitter:description"
+        content="Bots Discord, Sites Modernos e Servidores Cloud. Transforme suas ideias em realidade digital.">
+    <meta property="twitter:image" content="serverdev-logo-1.jpg">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="serverdev-logo-2.jpg">
+    <link rel="apple-touch-icon" href="serverdev-logo-2.jpg">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="css/serverdev.css">
+    <link rel="stylesheet" href="css/serverdev-animations.css">
+    <link rel="stylesheet" href="css/serverdev-social-proof.css">
+</head>
+
+<body>
+    <!-- Loading Screen -->
+    <div class="loading-screen">
+        <div class="loading-content">
+            <img src="serverdev-logo-2.jpg" alt="SERVER DEV" class="loading-logo">
+            <div class="loading-text">
+                <span class="loading-letter">S</span>
+                <span class="loading-letter">E</span>
+                <span class="loading-letter">R</span>
+                <span class="loading-letter">V</span>
+                <span class="loading-letter">E</span>
+                <span class="loading-letter">R</span>
+                <span class="loading-letter"> </span>
+                <span class="loading-letter accent">D</span>
+                <span class="loading-letter accent">E</span>
+                <span class="loading-letter accent">V</span>
+            </div>
+            <div class="loading-bar">
+                <div class="loading-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Particles Background -->
+    <div id="particles-container"></div>
+
+    <!-- Cursor Effect -->
+    <div class="cursor-glow"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo-nav">
+                <img src="serverdev-logo-2.jpg" alt="SERVER DEV" class="logo-small">
+                <span class="logo-text">SERVER<span class="accent">DEV</span></span>
+            </div>
+            <div class="nav-links">
+                <a href="#home" class="nav-link active">Início</a>
+                <a href="#services" class="nav-link">Serviços</a>
+                <a href="#portfolio" class="nav-link">Portfolio</a>
+                <a href="#contact" class="nav-link">Contato</a>
+            </div>
+            <button class="cta-button">Começar Projeto</button>
+
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" aria-label="Menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu">
+        <div class="mobile-menu-content">
+            <a href="#home" class="mobile-nav-link">Início</a>
+            <a href="#services" class="mobile-nav-link">Serviços</a>
+            <a href="#portfolio" class="mobile-nav-link">Portfolio</a>
+            <a href="#contact" class="mobile-nav-link">Contato</a>
+            <button class="mobile-cta-btn">Começar Projeto</button>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="badge-dot"></span>
+                <span>Disponível para novos projetos</span>
+            </div>
+            <h1 class="hero-title">
+                <span class="title-line">DESENVOLVEMOS</span>
+                <span class="title-line gradient-text">O FUTURO</span>
+                <span class="title-line">DIGITAL</span>
+            </h1>
+            <p class="hero-description">
+                Transformamos ideias em soluções tecnológicas poderosas.
+                Bots inteligentes, sites modernos e servidores robustos.
+            </p>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <span class="stat-number" data-target="50">0</span>
+                    <span class="stat-label">Projetos</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="100">0</span>
+                    <span class="stat-label">Clientes</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" data-target="99">0</span>
+                    <span class="stat-label">% Satisfação</span>
+                </div>
+            </div>
+            <div class="hero-cta">
+                <button class="primary-btn">
+                    <span>Ver Serviços</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <button class="secondary-btn">
+                    <span>Falar no Discord</span>
+                </button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="logo-showcase">
+                <img src="serverdev-logo-2.jpg" alt="SERVER DEV Logo" class="floating-logo">
+                <div class="logo-rings">
+                    <div class="ring ring-1"></div>
+                    <div class="ring ring-2"></div>
+                    <div class="ring ring-3"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">NOSSOS SERVIÇOS</span>
+                <h2 class="section-title">O Que <span class="gradient-text">Fazemos</span></h2>
+
+                <!-- Social Proof Badge -->
+                <div class="social-proof-badge">
+                    <div class="satisfaction-rate">
+                        <span class="rate-number">98%</span>
+                        <span class="rate-label">Satisfação</span>
+                    </div>
+                    <div class="mini-testimonial">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p>"Bot incrível! Meu servidor cresceu 300% em 2 meses"</p>
+                        <span class="client-name">- Lucas M., Cliente Discord</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="services-grid">
+                <!-- Bots Service -->
+                <div class="service-card" data-tilt>
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" />
+                            <path d="M2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Bots Discord</h3>
+                    <p class="service-description">
+                        Bots personalizados com funcionalidades avançadas de moderação, economia, música e muito mais.
+                    </p>
+                    <ul class="service-features">
+                        <li><span class="check">✓</span> Comandos customizados</li>
+                        <li><span class="check">✓</span> Integração com APIs</li>
+                        <li><span class="check">✓</span> Dashboard web</li>
+                        <li><span class="check">✓</span> Suporte 24/7</li>
+                    </ul>
+                    <div class="service-price">A partir de <span class="price">R$ 299</span><br><small
+                            style="opacity: 0.7; font-size: 12px;">ou valor a negociar</small></div>
+                </div>
+
+                <!-- Sites Service -->
+                <div class="service-card featured" data-tilt>
+                    <div class="featured-badge">POPULAR</div>
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                            <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" />
+                            <path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="2" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Sites Modernos</h3>
+                    <p class="service-description">
+                        Websites responsivos e performáticos com design moderno e experiência de usuário excepcional.
+                    </p>
+                    <ul class="service-features">
+                        <li><span class="check">✓</span> Design responsivo</li>
+                        <li><span class="check">✓</span> SEO otimizado</li>
+                        <li><span class="check">✓</span> Performance máxima</li>
+                        <li><span class="check">✓</span> Hospedagem inclusa</li>
+                    </ul>
+                    <div class="service-price">A partir de <span class="price">R$ 399</span><br><small
+                            style="opacity: 0.7; font-size: 12px;">ou valor a negociar</small></div>
+                </div>
+
+                <!-- Servers Service -->
+                <div class="service-card" data-tilt>
+                    <div class="service-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+                            <rect x="2" y="2" width="20" height="8" rx="2" stroke="currentColor" stroke-width="2" />
+                            <rect x="2" y="14" width="20" height="8" rx="2" stroke="currentColor" stroke-width="2" />
+                            <circle cx="6" cy="6" r="1" fill="currentColor" />
+                            <circle cx="6" cy="18" r="1" fill="currentColor" />
+                        </svg>
+                    </div>
+                    <h3 class="service-title">Servidores</h3>
+                    <p class="service-description">
+                        Configuração e manutenção de servidores seguros e escaláveis para hospedar suas aplicações.
+                    </p>
+                    <ul class="service-features">
+                        <li><span class="check">✓</span> Configuração completa</li>
+                        <li><span class="check">✓</span> Monitoramento 24/7</li>
+                        <li><span class="check">✓</span> Backup automático</li>
+                        <li><span class="check">✓</span> Alta disponibilidade</li>
+                    </ul>
+                    <div class="service-price">A partir de <span class="price">R$ 299</span><br><small
+                            style="opacity: 0.7; font-size: 12px;">ou valor a negociar</small></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="portfolio">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-subtitle">CÓDIGOS QUE TRANSFORMAM</span>
+                <h2 class="section-title">Projetos <span class="gradient-text">Principais</span></h2>
+            </div>
+
+            <div class="portfolio-showcase">
+                <!-- Featured Project - Large -->
+                <div class="project-card featured-project" data-project="1">
+                    <div class="project-header">
+                        <div class="project-category">DESTAQUE</div>
+                        <div class="project-status">
+                            <span class="status-dot"></span>
+                            <span>ONLINE</span>
+                        </div>
+                    </div>
+                    <div class="project-code">
+                        <div class="code-header">
+                            <span class="code-lang">Python</span>
+                            <div class="code-dots">
+                                <span></span><span></span><span></span>
+                            </div>
+                        </div>
+                        <pre class="code-snippet"><code><span class="code-comment"># Bot de Moderação Avançado</span>
+<span class="code-keyword">class</span> <span class="code-class">ModBot</span>:
+    <span class="code-keyword">def</span> <span class="code-function">__init__</span>(self):
+        self.commands = <span class="code-number">50+</span>
+        self.servers = <span class="code-number">100+</span>
+        
+    <span class="code-keyword">async def</span> <span class="code-function">auto_mod</span>(self):
+        <span class="code-string">"Sistema inteligente"</span>
+        <span class="code-keyword">return</span> <span class="code-string">"✓ Protegido"</span></code></pre>
+                    </div>
+                    <div class="project-info">
+                        <h3>Sistema de Moderação IA</h3>
+                        <p>Bot completo com detecção de spam, anti-raid e economia integrada</p>
+                        <div class="project-tech">
+                            <span>Discord.py</span>
+                            <span>PostgreSQL</span>
+                            <span>Redis</span>
+                        </div>
+                    </div>
+                    <div class="project-stats">
+                        <div class="stat">
+                            <span class="stat-value">100+</span>
+                            <span class="stat-label">Servidores</span>
+                        </div>
+                        <div class="stat">
+                            <span class="stat-value">50K+</span>
+                            <span class="stat-label">Usuários</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Side Projects -->
+                <div class="projects-grid">
+                    <!-- E-commerce Project -->
+                    <div class="project-card compact" data-project="2">
+                        <div class="project-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor"
+                                    stroke-width="2" />
+                                <path d="M3 9h18M9 21V9" stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tag">WEBSITE</div>
+                            <h4>E-commerce Premium</h4>
+                            <p>Loja virtual completa com painel admin e checkout integrado</p>
+                            <div class="project-metrics">
+                                <span>⚡ 98/100 Performance</span>
+                                <span>🎯 SEO Otimizado</span>
+                            </div>
+                        </div>
+                        <div class="project-tech-mini">
+                            <span>Next.js</span>
+                            <span>Stripe</span>
+                        </div>
+                    </div>
+
+                    <!-- Cloud Server Project -->
+                    <div class="project-card compact dark" data-project="3">
+                        <div class="project-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                <rect x="2" y="2" width="20" height="8" rx="2" stroke="currentColor" stroke-width="2" />
+                                <rect x="2" y="14" width="20" height="8" rx="2" stroke="currentColor"
+                                    stroke-width="2" />
+                                <circle cx="6" cy="6" r="1" fill="currentColor" />
+                                <circle cx="6" cy="18" r="1" fill="currentColor" />
+                            </svg>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tag">INFRAESTRUTURA</div>
+                            <h4>Cloud Infrastructure</h4>
+                            <p>Configuração com Docker, CI/CD e monitoramento 24/7</p>
+                            <div class="project-metrics">
+                                <span>⬆️ 99.9% Uptime</span>
+                                <span>🔒 SSL Seguro</span>
+                            </div>
+                        </div>
+                        <div class="project-tech-mini">
+                            <span>Docker</span>
+                            <span>AWS</span>
+                        </div>
+                    </div>
+
+                    <!-- Music Bot Project -->
+                    <div class="project-card compact" data-project="4">
+                        <div class="project-icon">
+                            <svg width="40" height="40" viewBox="0 0 24 24" fill="none">
+                                <path
+                                    d="M9 18V5l12-2v13M9 18c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3zm12-2c0 1.657-1.343 3-3 3s-3-1.343-3-3 1.343-3 3-3 3 1.343 3 3z"
+                                    stroke="currentColor" stroke-width="2" />
+                            </svg>
+                        </div>
+                        <div class="project-content">
+                            <div class="project-tag">DISCORD BOT</div>
+                            <h4>Music Bot Pro</h4>
+                            <p>Sistema de música com fila avançada e integração Spotify</p>
+                            <div class="project-metrics">
+                                <span>🎵 10+ Plataformas</span>
+                                <span>⚙️ 20+ Filtros</span>
+                            </div>
+                        </div>
+                        <div class="project-tech-mini">
+                            <span>Node.js</span>
+                            <span>Lavalink</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Portfolio CTA -->
+            <div class="portfolio-cta">
+                <p>Quer ver seu projeto aqui?</p>
+                <button class="portfolio-btn">
+                    <span>Começar Agora</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                        <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="contact-content">
+                <div class="contact-info">
+                    <span class="section-subtitle">VAMOS CONVERSAR</span>
+                    <h2 class="section-title">Pronto para <span class="gradient-text">Começar?</span></h2>
+                    <p class="contact-description">
+                        Entre em contato conosco e descubra como podemos transformar suas ideias em realidade digital.
+                    </p>
+
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z"
+                                        fill="currentColor" />
+                                </svg>
+                            </div>
+                            <div class="method-text">
+                                <h4>Discord</h4>
+                                <p>Junte-se ao nosso servidor</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <div class="method-icon">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                                    <path
+                                        d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                                        stroke="currentColor" stroke-width="2" />
+                                    <polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="2" />
+                                </svg>
+                            </div>
+                            <div class="method-text">
+                                <h4>Email</h4>
+                                <p>contato@serverdev.com</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                            </svg>
+                        </a>
+                        <a href="#" class="social-link">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
+                                <circle cx="4" cy="4" r="2" />
+                            </svg>
+                        </a>
+                    </div>
+
+                    <!-- Compact FAQ -->
+                    <div class="faq-compact">
+                        <h3 class="faq-title">Dúvidas Frequentes</h3>
+
+                        <div class="faq-item">
+                            <button class="faq-question">Quanto tempo leva para desenvolver? <span
+                                    class="faq-icon">+</span></button>
+                            <div class="faq-answer">
+                                <p>Bots: 5-10 dias | Sites: 15-20 dias | Servidores: 3-5 dias</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">Tem garantia? <span class="faq-icon">+</span></button>
+                            <div class="faq-answer">
+                                <p>Sim! 30 dias de garantia e suporte incluso em todos os serviços.</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">Quais formas de pagamento? <span
+                                    class="faq-icon">+</span></button>
+                            <div class="faq-answer">
+                                <p>PIX, cartão de crédito e transferência bancária. Parcelamento disponível!</p>
+                            </div>
+                        </div>
+
+                        <div class="faq-item">
+                            <button class="faq-question">Fazem manutenção depois? <span
+                                    class="faq-icon">+</span></button>
+                            <div class="faq-answer">
+                                <p>Sim! Oferecemos planos de manutenção mensal ou atendimento por demanda.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-wrapper">
+                    <form class="contact-form">
+                        <div class="form-group">
+                            <input type="text" placeholder="Seu nome" required>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" placeholder="Seu email" required>
+                        </div>
+                        <div class="form-group">
+                            <select required>
+                                <option value="">Selecione o serviço</option>
+                                <option value="bot">Bot Discord</option>
+                                <option value="site">Site Moderno</option>
+                                <option value="servidor">Servidor</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <textarea placeholder="Descreva seu projeto" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">
+                            <span>Enviar Mensagem</span>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+                                <path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <img src="serverdev-logo-2.jpg" alt="SERVER DEV" class="footer-logo">
+                    <p>Transformando ideias em realidade digital desde 2024.</p>
+                </div>
+                <div class="footer-links">
+                    <div class="footer-column">
+                        <h4>Serviços</h4>
+                        <a href="#services">Bots Discord</a>
+                        <a href="#services">Sites Modernos</a>
+                        <a href="#services">Servidores</a>
+                    </div>
+                    <div class="footer-column">
+                        <h4>Empresa</h4>
+                        <a href="#portfolio">Portfolio</a>
+                        <a href="#contact">Contato</a>
+                        <a href="#">Sobre Nós</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SERVER DEV. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Voltar ao topo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                stroke-linejoin="round" />
+        </svg>
+    </button>
+
+    <!-- WhatsApp/Discord Floating Button -->
+    <a href="https://discord.gg/serverdev" target="_blank" class="floating-chat" aria-label="Falar no Discord">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+            <path
+                d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515a.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0a12.64 12.64 0 0 0-.617-1.25a.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057a19.9 19.9 0 0 0 5.993 3.03a.078.078 0 0 0 .084-.028a14.09 14.09 0 0 0 1.226-1.994a.076.076 0 0 0-.041-.106a13.107 13.107 0 0 1-1.872-.892a.077.077 0 0 1-.008-.128a10.2 10.2 0 0 0 .372-.292a.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127a12.299 12.299 0 0 1-1.873.892a.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028a19.839 19.839 0 0 0 6.002-3.03a.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.956-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419c0-1.333.955-2.419 2.157-2.419c1.21 0 2.176 1.096 2.157 2.42c0 1.333-.946 2.418-2.157 2.418z" />
+        </svg>
+        <span class="chat-pulse"></span>
+    </a>
+
+    <script src="js/serverdev.js"></script>
+</body>
+
+</html>
