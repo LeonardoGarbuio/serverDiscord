@@ -1,0 +1,24 @@
+p {
+    font-family: Arial;
+    color: black;
+}
+
+h3 {
+    text-align: center;
+    color: orangered;
+    font-family: Arial;
+}
+
+body {
+    background-color: aliceblue;
+}
+main {
+    background-color: rgb(111, 153, 189);
+    border-radius: 10px; 
+    box-shadow: 5px 5px 15px rgba(69, 92, 31, 0.5);
+    width: 900px;
+    padding: 10px;
+    margin: auto;
+    text-align: justify;
+}
+

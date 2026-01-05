@@ -276,8 +276,13 @@ document.querySelectorAll('.cta-button, .primary-btn').forEach(btn => {
 });
 
 document.querySelectorAll('.secondary-btn, .mobile-cta-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-        document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+    btn.addEventListener('click', (e) => {
+        const href = btn.getAttribute('href');
+        // Only scroll if it's not an external link
+        if (!href || href.startsWith('#') || href.startsWith('javascript')) {
+            e.preventDefault();
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        }
     });
 });
 

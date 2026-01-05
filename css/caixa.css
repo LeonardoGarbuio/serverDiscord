@@ -1,0 +1,94 @@
+h3 { 
+    
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 30px;
+    border: 4px solid rgb(216, 26, 26); 
+
+}
+
+p {
+
+    font-family: 'Times New Roman', Times, serif;
+    border: 4px solid rgb(0, 0, 0); 
+    border-radius: 10px;
+    font-size: 20px;
+    width:300px;
+    text-align: center;
+    margin-left:1100px;
+    padding: 10px;
+    background-color: aliceblue;
+    box-shadow: 15px 15px 15px rgb(71, 70, 70);
+
+}
+
+#colorido{
+
+    font-family: 'Times New Roman', Times, serif;
+    border: 4px solid rgb(40, 167, 145); 
+    border-radius: 10px;
+    font-size: 20px;
+    width:300px;
+    text-align: center;
+    margin-left:300px;
+    padding: 10px;
+    background-color: rgb(67, 67, 160);
+    box-shadow: 15px 15px 15px rgb(71, 70, 70);
+
+    
+}
+
+#idiota{
+font-family: 'Times New Roman', Times, serif;
+border: 4px solid rgb(105, 27, 27); 
+border-radius: 10px;
+font-size: 20px;
+width:300px;
+text-align: center;
+margin-left:300px;
+padding: 10px;
+background-color: rgb(204, 25, 25);
+box-shadow: 15px 15px 15px rgb(71, 70, 70);
+
+}
+
+#azul{
+    font-family: 'Times New Roman', Times, serif;
+    border: 4px solid rgb(29, 92, 29); 
+    border-radius: 10px;
+    font-size: 20px;
+    width:300px;
+    text-align: center;
+    margin-left:300px;
+    padding: 10px;
+    background-color: rgb(23, 196, 46);
+    box-shadow: 15px 15px 15px rgb(71, 70, 70);
+
+
+    }
+
+
+
+button{
+    font-family: "Arial";
+    border-radius: 10px;
+    font-size: 20px;
+    width:300px;
+    text-align: center;
+    margin-left: 1115px;
+    padding: 10px;
+    box-shadow: 15px 15px 15px rgb(71, 70, 70);
+               
+}
+
+h1{
+
+    font-family: Arial ;
+    text-align: center;
+    font-size: 30px;
+
+
+}
+
+
+

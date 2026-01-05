@@ -1,0 +1,60 @@
+p{
+
+font-family: arial;
+color:black;
+font-size: 20px;
+line-height: 1.7;
+
+}
+
+
+
+h1{
+
+color:#5c747c;
+font-family: arial;
+
+}
+
+h2{
+
+color:#5c747c;
+font-family: arial;
+    
+}
+
+
+body{
+
+background-color:  4281545523;
+
+}
+main {
+    background-color: #fcf4cc;
+    border-radius: 0px; 
+    box-shadow: 10;
+    width: 900px;
+    padding: 10px;
+    margin: auto;
+    text-align: justify;
+}
+div{
+
+text-align: end;
+font-family: arial;
+color:black;
+font-size: 20px;
+line-height: 1.5;
+
+}
+
+image{
+ 
+
+
+  
+text-align: center;
+
+   
+
+}

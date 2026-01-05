@@ -1,0 +1,46 @@
+body {
+    text-align: center;
+    background-color: #849a4d;
+    font-family: 'Tangerine', serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+}
+
+h1, h2 {
+    font-family: Tangerine;
+    font-size: 50px;
+    color: #774c2c;
+}
+
+img {
+    width: 300px;
+    border-radius: 20px;
+    border: solid 5px #774c2c;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  
+}
+
+button{
+    background-color:green(92, 28, 28) ;
+    border:66;
+    border-radius: 54px;
+    color: #774c2c ;
+    font-size: 20px
+}
+
+p{
+
+    font-family: Arial, Helvetica, sans-serif;
+}
