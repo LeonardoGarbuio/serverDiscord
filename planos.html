@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERVER DEV | Planos</title>
+    <link rel="stylesheet" href="css/serverdev.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+</head>
+
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="vignette"></div>
+
+    <main class="scrolly-container">
+        <section id="plans" class="sticky-section" style="padding-top: 100px;">
+            <div class="content-wrapper column ">
+                <div class="text-block" style="width: 100%; max-width: 900px; margin: 0 auto; text-align: left;">
+                    <div class="section-label"><i data-lucide="sparkles"></i> Planos StorM | Economia e Eficiência</div>
+                    <h2 class="display-subtitle" style="font-size: 2.5rem;">Economize com Bot de Vendas Discord Completo
+                    </h2>
+                    <p class="section-desc">
+                        Plataforma tudo-em-um para gerenciar vendas, tickets e verificação no Discord.
+                        Economize tempo e dinheiro com automações inteligentes.
+                    </p>
+                </div>
+
+                <div class="comparison-container mt-8">
+                    <div class="plans-row">
+                        <!-- Bad Option -->
+                        <div class="plan-block bad-option">
+                            <h3>Outras Plataformas de Bots</h3>
+                            <ul class="plan-specs">
+                                <li class="negative"><span>×</span> Múltiplos bots e ferramentas separadas</li>
+                                <li class="negative"><span>×</span> Planos caros para cada funcionalidade</li>
+                                <li class="negative"><span>×</span> Gastos de até R$50,00/mês ou mais</li>
+                            </ul>
+                        </div>
+
+                        <!-- Good Option -->
+                        <div class="plan-block good-option">
+                            <div class="glow-effect"></div>
+                            <h3>Bot StorM Applications</h3>
+                            <ul class="plan-specs">
+                                <li class="positive"><span>✓</span> Tudo em uma única plataforma integrada</li>
+                                <li class="positive"><span>✓</span> Bot completo: vendas, tickets, verificação e IA</li>
+                                <li class="positive"><span>✓</span> Menos de R$15,00/mensais - Economia real!</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 40px;">
+                        <a href="https://discord.gg/swvuvV6wmx" target="_blank" class="btn-white-cta">Criar Meu Bot de
+                            Vendas Discord Agora</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <nav class="dock-wrapper">
+        <div class="dock">
+            <a href="index.html" class="dock-icon">
+                <i data-lucide="home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="portfolio.html" class="dock-icon">
+                <i data-lucide="image"></i>
+                <span>Exemplos</span>
+            </a>
+            <a href="planos.html" class="dock-icon active">
+                <i data-lucide="credit-card"></i>
+                <span>Planos</span>
+            </a>
+            <a href="servicos.html" class="dock-icon">
+                <i data-lucide="zap"></i>
+                <span>Serviços</span>
+            </a>
+            <a href="parcerias.html" class="dock-icon">
+                <i data-lucide="handshake"></i>
+                <span>Parcerias</span>
+            </a>
+            <a href="taxados.html" class="dock-icon">
+                <i data-lucide="alert-triangle"></i>
+                <span>Taxados</span>
+            </a>
+        </div>
+    </nav>
+
+    <script type="module" src="js/serverdev.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+
+</html>

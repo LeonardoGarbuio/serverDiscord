@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERVER DEV | Serviços</title>
+    <link rel="stylesheet" href="css/serverdev.css?v=70">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        /* FORCE DASHBOARD STYLES (CENTRALIZED FIX) */
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 1.6fr 1fr;
+            /* Adjusted Ratio */
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto 60px auto;
+            align-items: start;
+            /* Prevent auto-stretch, controlled by JS */
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .config-panel {
+            background: #09090b !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 24px;
+            padding: 35px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .control-group {
+            background: #18181b !important;
+            padding: 25px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .switch-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: #18181b !important;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            margin-bottom: 15px;
+        }
+
+        .price-display {
+            background: rgba(255, 255, 255, 0.02);
+            padding: 24px;
+            border-radius: 16px;
+            margin-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .feed-panel {
+            background: #09090b !important;
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            border-radius: 24px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Height set by JS */
+        }
+
+        .feed-list {
+            flex: 1;
+            /* Force grow to fill allocated height */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            overflow-y: auto;
+            /* Scroll enabled */
+            padding-right: 5px;
+
+            scrollbar-width: thin;
+            scrollbar-color: #333 transparent;
+        }
+
+        .feed-list::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .feed-list::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        .feed-list::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .btn-primary {
+            background: #ffffff !important;
+            color: #000 !important;
+            font-weight: 800 !important;
+            padding: 16px 40px !important;
+            border-radius: 12px;
+            border: none;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+        }
+
+        .btn-option {
+            background: #18181b;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a1a1aa;
+            padding: 12px 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            flex: 1;
+            transition: 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .btn-option:hover {
+            background: #27272a;
+            color: white;
+        }
+
+        .btn-option.active {
+            background: #3b82f6;
+            color: white;
+            border-color: #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+        }
+
+        .project-options {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn.active {
+            background: #27272a !important;
+            color: white !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .tab-btn:hover {
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise-overlay"></div>
+
+    <main class="scrolly-container">
+        <section id="services" class="sticky-section"
+            style="padding-top: 140px; padding-bottom: 200px; align-items: flex-start;">
+            <div class="content-wrapper column">
+
+                <!-- Header -->
+                <div class="text-block"
+                    style="display: flex; justify-content: space-between; align-items: center; gap: 40px; width: 100%; max-width: 1200px; margin: 0 auto 50px auto; text-align: left;">
+                    <div style="flex: 1.2;">
+                        <div class="section-label" style="text-align: left; color: #3b82f6; margin-bottom: 10px;">
+                            SOLUÇÕES DIGITAIS</div>
+                        <h2 class="display-subtitle"
+                            style="font-size: 3rem; line-height: 1.1; margin-bottom: 0; color: white;">
+                            Rapidez e Eficiência para <br> <span
+                                style="background: linear-gradient(90deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Impulsionar
+                                seu Negócio.</span>
+                        </h2>
+                    </div>
+                    <div style="flex: 1; display: flex; justify-content: flex-end;">
+                        <p class="section-desc"
+                            style="text-align: left; font-size: 1.1rem; color: #a1a1aa; max-width: 450px; margin: 0;">
+                            Desenvolvemos sites modernos, bots inteligentes e sistemas completos.
+                            Tecnologia de ponta entregue no prazo para você focar no que importa: crescer.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Dashboard -->
+                <div class="dashboard-container">
+
+                    <!-- Left: Config -->
+                    <div class="config-panel" id="configPanel">
+                        <div class="config-header">
+                            <h3><i data-lucide="calculator"
+                                    style="vertical-align: middle; margin-right: 8px; width: 18px;"></i> Orçamento de
+                                Projeto</h3>
+                            <span style="font-size: 0.8rem; color: #4ade80;">● Online</span>
+                        </div>
+
+                        <!-- 1. Tabs -->
+                        <div class="project-category-tabs"
+                            style="display: flex; background: #18181b; padding: 4px; border-radius: 12px; margin-bottom: 25px; border: 1px solid rgba(255,255,255,0.05);">
+                            <button id="tab-web" class="tab-btn active" onclick="setCategory('web')"
+                                style="flex: 1; padding: 10px; border: none; background: transparent; color: #71717a; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s;"><i
+                                    data-lucide="monitor"
+                                    style="width: 16px; vertical-align: middle; margin-right: 6px;"></i>
+                                Websites</button>
+                            <button id="tab-bot" class="tab-btn" onclick="setCategory('bot')"
+                                style="flex: 1; padding: 10px; border: none; background: transparent; color: #71717a; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.3s;"><i
+                                    data-lucide="bot"
+                                    style="width: 16px; vertical-align: middle; margin-right: 6px;"></i> Discord
+                                Bots</button>
+                        </div>
+
+                        <!-- 2. Options -->
+                        <div class="control-group">
+                            <label class="control-label"
+                                style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                                <span style="color: #e4e4e7; font-weight: 600;">Plano Base</span>
+                                <span id="project-type-label" style="color: #3b82f6;">Landing Page</span>
+                            </label>
+                            <div id="options-web" class="project-options">
+                                <button class="btn-option active" data-value="200" data-label="Landing Page"
+                                    onclick="selectProject(this)">Básico (R$ 200)</button>
+                                <button class="btn-option" data-value="650" data-label="Site Pro"
+                                    onclick="selectProject(this)">Pro (R$ 650)</button>
+                                <button class="btn-option" data-value="1500" data-label="E-commerce"
+                                    onclick="selectProject(this)">Loja (R$ 1.500)</button>
+                            </div>
+                            <div id="options-bot" class="project-options" style="display: none;">
+                                <button class="btn-option" data-value="100" data-label="Bot Simples"
+                                    onclick="selectProject(this)">Simples (R$ 100)</button>
+                                <button class="btn-option" data-value="300" data-label="Bot Gerenciador"
+                                    onclick="selectProject(this)">Médio (R$ 300)</button>
+                                <button class="btn-option" data-value="800" data-label="Sistema Completo"
+                                    onclick="selectProject(this)">Full (R$ 800)</button>
+                            </div>
+                        </div>
+
+                        <!-- 3. Addons -->
+                        <div class="toggles-container">
+                            <div id="addons-web">
+                                <div class="switch-group">
+                                    <div>
+                                        <div class="switch-label" style="font-weight: 600; color: white;">Bot Integrado
+                                        </div><small style="color: #71717a;">+ R$ 150,00</small>
+                                    </div><label class="switch"><input type="checkbox" class="addon-toggle" value="150"
+                                            onchange="calculateTotal()"><span class="slider"></span></label>
+                                </div>
+                                <div class="switch-group">
+                                    <div>
+                                        <div class="switch-label" style="font-weight: 600; color: white;">Painel Admin
+                                        </div><small style="color: #71717a;">+ R$ 250,00</small>
+                                    </div><label class="switch"><input type="checkbox" class="addon-toggle" value="250"
+                                            onchange="calculateTotal()"><span class="slider"></span></label>
+                                </div>
+                                <div class="switch-group">
+                                    <div>
+                                        <div class="switch-label" style="font-weight: 600; color: white;">Design Premium
+                                        </div><small style="color: #71717a;">+ R$ 150,00</small>
+                                    </div><label class="switch"><input type="checkbox" class="addon-toggle" value="150"
+                                            onchange="calculateTotal()"><span class="slider"></span></label>
+                                </div>
+                            </div>
+                            <div id="addons-bot" style="display: none;">
+                                <div class="switch-group">
+                                    <div>
+                                        <div class="switch-label" style="font-weight: 600; color: white;">Hospedagem
+                                        </div><small style="color: #71717a;">+ R$ 40,00/mês</small>
+                                    </div><label class="switch"><input type="checkbox" class="addon-toggle" value="40"
+                                            onchange="calculateTotal()"><span class="slider"></span></label>
+                                </div>
+                                <div class="switch-group">
+                                    <div>
+                                        <div class="switch-label" style="font-weight: 600; color: white;">Comandos Admin
+                                        </div><small style="color: #71717a;">+ R$ 80,00</small>
+                                    </div><label class="switch"><input type="checkbox" class="addon-toggle" value="80"
+                                            onchange="calculateTotal()"><span class="slider"></span></label>
+                                </div>
+                                <div class="switch-group">
+                                    <div>
+                                        <div class="switch-label" style="font-weight: 600; color: white;">API Externa
+                                        </div><small style="color: #71717a;">+ R$ 150,00</small>
+                                    </div><label class="switch"><input type="checkbox" class="addon-toggle" value="150"
+                                            onchange="calculateTotal()"><span class="slider"></span></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Footer -->
+                        <div class="price-display">
+                            <div><small style="color: #a1a1aa;">Investimento Estimado</small>
+                                <div id="total-price" class="total-price"
+                                    style="font-size: 2.2rem; font-weight: 900; color: white;">R$ 200,00</div>
+                            </div>
+                            <button class="btn-primary">Solicitar Orçamento</button>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Feed -->
+                    <div class="feed-panel" id="feedPanel">
+                        <div class="feed-header"
+                            style="color: #a1a1aa; font-size: 0.9rem; margin-bottom: 20px; display:flex; justify-content:space-between;">
+                            <span><i data-lucide="zap" style="width: 14px;"></i> Projetos Recentes <span id="feed-count"
+                                    style="color:#4ade80">(Carregando...)</span></span>
+                        </div>
+                        <div class="feed-list" id="activity-feed">
+                            <!-- Items via JS -->
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Footer Text & Cards -->
+                <div class="text-block"
+                    style="width: 100%; max-width: 100%; margin: 60px auto 30px auto; text-align: center;">
+                    <div class="section-label" style="text-align: center; color: #4ade80;">DIFERENCIAIS</div>
+                    <h2 class="display-subtitle"
+                        style="font-size: 2.5rem; color: white; display: inline-block; font-weight: 800;">Tecnologia de
+                        Ponta</h2>
+                </div>
+                <div class="compact-grid"
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; width: 100%; max-width: 1200px; margin: 0 auto;">
+                    <div class="compact-card"
+                        style="background: #18181b; padding: 40px 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <div
+                            style="background: rgba(59, 130, 246, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: #3b82f6;">
+                            <i data-lucide="code" style="width: 40px; height: 40px;"></i></div>
+                        <h4 style="color: white; margin-bottom: 10px;">Código Limpo</h4>
+                        <p style="color: #a1a1aa;">Otimizado.</p>
+                    </div>
+                    <div class="compact-card"
+                        style="background: #18181b; padding: 40px 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <div
+                            style="background: rgba(236, 72, 153, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: #ec4899;">
+                            <i data-lucide="layout" style="width: 40px; height: 40px;"></i></div>
+                        <h4 style="color: white; margin-bottom: 10px;">Design Moderno</h4>
+                        <p style="color: #a1a1aa;">Interfaces.</p>
+                    </div>
+                    <div class="compact-card"
+                        style="background: #18181b; padding: 40px 30px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); text-align: center;">
+                        <div
+                            style="background: rgba(16, 185, 129, 0.1); width: 80px; height: 80px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px auto; color: #10b981;">
+                            <i data-lucide="smartphone" style="width: 40px; height: 40px;"></i></div>
+                        <h4 style="color: white; margin-bottom: 10px;">Responsivo</h4>
+                        <p style="color: #a1a1aa;">Mobile First.</p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <nav class="dock-wrapper">
+        <div class="dock">
+            <a href="index.html" class="dock-icon"><i data-lucide="home"></i><span>Inicio</span></a>
+            <a href="portfolio.html" class="dock-icon"><i data-lucide="image"></i><span>Exemplos</span></a>
+            <a href="servicos.html" class="dock-icon active"><i data-lucide="zap"></i><span>Serviços</span></a>
+            <a href="parcerias.html" class="dock-icon"><i data-lucide="handshake"></i><span>Parcerias</span></a>
+        </div>
+    </nav>
+
+    <script type="module" src="js/serverdev.js"></script>
+    <script>
+        lucide.createIcons();
+        let currentBasePrice = 200, activeCategory = 'web';
+
+        window.selectProject = function (btn) {
+            btn.parentElement.querySelectorAll('.btn-option').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            currentBasePrice = parseInt(btn.getAttribute('data-value'));
+            document.getElementById('project-type-label').innerText = btn.getAttribute('data-label');
+            calculateTotal();
+        }
+
+        window.setCategory = function (cat) {
+            activeCategory = cat;
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('tab-' + cat).classList.add('active');
+            if (cat === 'bot') {
+                document.getElementById('options-web').style.display = 'none'; document.getElementById('options-bot').style.display = 'flex';
+                document.getElementById('addons-web').style.display = 'none'; document.getElementById('addons-bot').style.display = 'block';
+                document.querySelector('#options-bot .btn-option').click();
+            } else {
+                document.getElementById('options-bot').style.display = 'none'; document.getElementById('options-web').style.display = 'flex';
+                document.getElementById('addons-bot').style.display = 'none'; document.getElementById('addons-web').style.display = 'block';
+                document.querySelector('#options-web .btn-option').click();
+            }
+            lucide.createIcons();
+            setTimeout(syncPanelHeights, 100);
+        }
+
+        function syncPanelHeights() {
+            const configPanel = document.getElementById('configPanel');
+            const feedPanel = document.getElementById('feedPanel');
+            if (window.innerWidth > 900) {
+                feedPanel.style.height = configPanel.offsetHeight + 'px';
+            } else {
+                feedPanel.style.height = 'auto';
+            }
+        }
+        window.addEventListener('resize', syncPanelHeights);
+        window.addEventListener('load', syncPanelHeights);
+
+        // FEED LOGIC
+        const feedContainer = document.getElementById('activity-feed');
+        const feedCountLabel = document.getElementById('feed-count');
+        const projectTypes = [
+            { label: 'LP', name: 'Landing Page', price: [200, 500], color: 'linear-gradient(45deg, #10b981, #3b82f6)' },
+            { label: 'BT', name: 'Bot Discord', price: [80, 300], color: 'linear-gradient(45deg, #f59e0b, #ef4444)' },
+            { label: 'LJ', name: 'E-commerce', price: [1500, 5000], color: 'linear-gradient(45deg, #8b5cf6, #ec4899)' },
+            { label: 'SP', name: 'Site Pro', price: [650, 2000], color: 'linear-gradient(45deg, #3b82f6, #6366f1)' },
+            { label: 'DS', name: 'Design UI', price: [150, 400], color: 'linear-gradient(45deg, #ec4899, #f43f5e)' },
+            { label: 'API', name: 'Integração API', price: [300, 800], color: 'linear-gradient(45deg, #fbbf24, #d97706)' }
+        ];
+
+        function createFeedItem(customTime = null) {
+            const type = projectTypes[Math.floor(Math.random() * projectTypes.length)];
+            const price = Math.floor(Math.random() * (type.price[1] - type.price[0])) + type.price[0];
+            const div = document.createElement('div');
+            div.style.cssText = `display: flex; gap: 12px; align-items: center; padding: 12px; background: #18181b; border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 0px; flex-shrink: 0;`;
+            /* Removed flex-grow from items to prevent stretching */
+            div.innerHTML = `
+                <div style="width: 36px; height: 36px; border-radius: 50%; background: ${type.color}; display: flex; align-items: center; justify-content: center; font-weight: bold; color: white;">${type.label}</div>
+                <div style="font-size: 0.85rem; color: #e4e4e7;"><strong>${type.name}</strong> vendido<small style="display: block; color: #71717a;">${customTime || "Acabou de sair"} • R$ ${price.toLocaleString('pt-BR')}</small></div>
+            `;
+            if (customTime) feedContainer.appendChild(div);
+            else feedContainer.insertBefore(div, feedContainer.firstChild);
+        }
+
+        function initLiveFeed() {
+            feedContainer.innerHTML = '';
+            for (let i = 0; i < 30; i++) {
+                createFeedItem(`Há ${Math.floor(Math.random() * 60 + 5)} min`);
+            }
+            feedCountLabel.innerText = `(${feedContainer.children.length} itens)`;
+            setTimeout(syncPanelHeights, 50);
+        }
+        initLiveFeed();
+        setInterval(() => {
+            createFeedItem();
+            if (feedContainer.children.length > 35) feedContainer.lastChild.remove();
+            feedCountLabel.innerText = `(${feedContainer.children.length} itens)`;
+        }, 3500);
+
+        window.calculateTotal = function () {
+            let total = currentBasePrice;
+            let activeContainer = (activeCategory === 'web') ? 'addons-web' : 'addons-bot';
+            document.querySelectorAll(`#${activeContainer} .addon-toggle:checked`).forEach(t => total += parseInt(t.value));
+            document.getElementById('total-price').innerText = "R$ " + total.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+        }
+        calculateTotal();
+    </script>
+</body>
+
+</html>

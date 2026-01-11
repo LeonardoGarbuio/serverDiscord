@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SERVER DEV | Portfólio</title>
+    <link rel="stylesheet" href="css/serverdev.css?v=35">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <style>
+        /* PORTFOLIO SPECIFIC STYLES */
+
+        /* Filter Tabs */
+        .filter-bar {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #a1a1aa;
+            padding: 10px 24px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: #fff;
+            color: #000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        /* Gallery Grid */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            background: #18181b;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 350px;
+            /* Fixed height for consistency */
+            group-hover: shadow-lg;
+            cursor: pointer;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            z-index: 2;
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: 0.5s;
+            opacity: 0.6;
+        }
+
+        .gallery-item:hover .item-image {
+            opacity: 0.3;
+            transform: scale(1.1);
+        }
+
+        /* Content Overlay */
+        .item-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px;
+            background: linear-gradient(to top, rgba(0, 0, 0, 1), transparent);
+            transform: translateY(20px);
+            transition: 0.4s;
+        }
+
+        .gallery-item:hover .item-overlay {
+            transform: translateY(0);
+        }
+
+        .item-tag {
+            background: #3b82f6;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: inline-block;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Specific Tag Colors */
+        .tag-web {
+            background: #3b82f6;
+        }
+
+        .tag-bot {
+            background: #f59e0b;
+        }
+
+        .tag-design {
+            background: #ec4899;
+        }
+
+        .item-title {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .item-desc {
+            color: #d4d4d8;
+            font-size: 0.9rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: 0.4s 0.1s;
+            /* Delay */
+            height: 0;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover .item-desc {
+            opacity: 1;
+            transform: translateY(0);
+            height: auto;
+            margin-top: 10px;
+        }
+
+        /* View Button (Centered) */
+        .view-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.5);
+            background: white;
+            color: black;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .gallery-item:hover .view-btn {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Featured Item (Spans 2 cols) */
+        @media (min-width: 900px) {
+            .gallery-item.featured {
+                grid-column: span 2;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="noise-overlay"></div>
+    <div class="vignette"></div>
+
+    <main class="scrolly-container">
+        <section id="portfolio" class="sticky-section" style="padding-top: 140px;">
+            <div class="content-wrapper column">
+
+                <!-- Header -->
+                <div class="text-block"
+                    style="width: 100%; max-width: 900px; margin: 0 auto 40px auto; text-align: center;">
+                    <div class="section-label" style="text-align: center;">GALERIA</div>
+                    <h2 class="display-subtitle" style="font-size: 3rem; color: white;">Nossas Criações</h2>
+                    <p class="section-desc" style="text-align: center;">
+                        Cada projeto é uma obra de arte digital. Explore nosso universo de desenvolvimento.
+                    </p>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <button class="filter-btn active" onclick="filterGallery('all')">Todos</button>
+                    <button class="filter-btn" onclick="filterGallery('web')"><i data-lucide="monitor" width="14"></i>
+                        Websites</button>
+                    <button class="filter-btn" onclick="filterGallery('bot')"><i data-lucide="bot" width="14"></i>
+                        Bots</button>
+                    <button class="filter-btn" onclick="filterGallery('design')"><i data-lucide="palette"
+                            width="14"></i> Design</button>
+                </div>
+
+                <!-- Gallery Grid -->
+                <div class="gallery-grid" id="gallery-container">
+
+                    <!-- Featured Item -->
+                    <div class="gallery-item featured" data-category="web">
+                        <div class="item-image"
+                            style="background: linear-gradient(135deg, #0f172a, #1e293b); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="shopping-bag"
+                                style="width: 80px; height: 80px; color: rgba(255,255,255,0.1);"></i>
+                        </div> <!-- Placeholder -->
+                        <div class="view-btn"><i data-lucide="arrow-up-right"></i></div>
+                        <div class="item-overlay">
+                            <span class="item-tag tag-web">E-commerce Premium</span>
+                            <h3 class="item-title">Loja HypeX</h3>
+                            <p class="item-desc">Plataforma completa de vendas de skins com integração automática de
+                                pagamento e entrega instantânea.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 2 -->
+                    <div class="gallery-item" data-category="bot">
+                        <div class="item-image"
+                            style="background: linear-gradient(135deg, #3f3f46, #18181b); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="bot" style="width: 60px; height: 60px; color: rgba(255,255,255,0.1);"></i>
+                        </div>
+                        <div class="view-btn"><i data-lucide="arrow-up-right"></i></div>
+                        <div class="item-overlay">
+                            <span class="item-tag tag-bot">Bot de Gerenciamento</span>
+                            <h3 class="item-title">AutoMod V3</h3>
+                            <p class="item-desc">Sistema de moderação automática com IA e logs avançados.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 3 -->
+                    <div class="gallery-item" data-category="web">
+                        <div class="item-image"
+                            style="background: linear-gradient(135deg, #1e1b4b, #312e81); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="layout"
+                                style="width: 60px; height: 60px; color: rgba(255,255,255,0.1);"></i>
+                        </div>
+                        <div class="view-btn"><i data-lucide="arrow-up-right"></i></div>
+                        <div class="item-overlay">
+                            <span class="item-tag tag-web">Landing Page</span>
+                            <h3 class="item-title">SaaS Stark</h3>
+                            <p class="item-desc">Página de alta conversão para startup de tecnologia.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 4 -->
+                    <div class="gallery-item" data-category="design">
+                        <div class="item-image"
+                            style="background: linear-gradient(135deg, #831843, #be185d); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="palette"
+                                style="width: 60px; height: 60px; color: rgba(255,255,255,0.1);"></i>
+                        </div>
+                        <div class="view-btn"><i data-lucide="arrow-up-right"></i></div>
+                        <div class="item-overlay">
+                            <span class="item-tag tag-design">UI Kit</span>
+                            <h3 class="item-title">Neon System</h3>
+                            <p class="item-desc">Sistema de design completo para aplicações dark mode.</p>
+                        </div>
+                    </div>
+
+                    <!-- Item 5 -->
+                    <div class="gallery-item" data-category="bot">
+                        <div class="item-image"
+                            style="background: linear-gradient(135deg, #14532d, #166534); display: flex; align-items: center; justify-content: center;">
+                            <i data-lucide="ticket"
+                                style="width: 60px; height: 60px; color: rgba(255,255,255,0.1);"></i>
+                        </div>
+                        <div class="view-btn"><i data-lucide="arrow-up-right"></i></div>
+                        <div class="item-overlay">
+                            <span class="item-tag tag-bot">Ticket System</span>
+                            <h3 class="item-title">Suporte Pro</h3>
+                            <p class="item-desc">Sistema de tickets com transcrição e avaliação.</p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+    <nav class="dock-wrapper">
+        <div class="dock">
+            <a href="index.html" class="dock-icon">
+                <i data-lucide="home"></i>
+                <span>Inicio</span>
+            </a>
+            <a href="portfolio.html" class="dock-icon active">
+                <i data-lucide="image"></i>
+                <span>Exemplos</span>
+            </a>
+            <a href="servicos.html" class="dock-icon">
+                <i data-lucide="zap"></i>
+                <span>Serviços</span>
+            </a>
+            <a href="parcerias.html" class="dock-icon">
+                <i data-lucide="handshake"></i>
+                <span>Parcerias</span>
+            </a>
+        </div>
+    </nav>
+
+    <script type="module" src="js/serverdev.js"></script>
+    <script>
+        lucide.createIcons();
+
+        // Filter Logic
+        window.filterGallery = function (category) {
+            // Active Button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active'); // Needs event passed or implicit
+
+            // Filter Items
+            const items = document.querySelectorAll('.gallery-item');
+            items.forEach(item => {
+                if (category === 'all' || item.getAttribute('data-category') === category) {
+                    item.style.display = 'block';
+                    // Optional: Animate in
+                    gsap.fromTo(item, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.4 });
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,315 +1,208 @@
-// ================================================
-// SERVER DEV - Enhanced Interactive JavaScript
-// ================================================
+// Import Three.js modules
+import * as THREE from 'three';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 
-// === Loading Screen ===
-window.addEventListener('load', () => {
-    setTimeout(() => {
-        const loadingScreen = document.querySelector('.loading-screen');
-        loadingScreen.classList.add('hidden');
-        setTimeout(() => {
-            loadingScreen.style.display = 'none';
-        }, 500);
-    }, 2000); // Show for 2 seconds
-});
+console.log("SYSTEM // DRONE CONNECTED - V_FINAL_ROTATION_FIX");
 
-// === Mobile Menu Toggle ===
-const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-const mobileMenu = document.querySelector('.mobile-menu');
-const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+// Register GSAP ScrollTrigger
+gsap.registerPlugin(ScrollTrigger);
 
-function toggleMobileMenu() {
-    mobileMenuBtn.classList.toggle('active');
-    mobileMenu.classList.toggle('active');
-    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-}
+// === 3D ENGINE SETUP ===
+const container = document.getElementById('drone-container');
 
-mobileMenuBtn?.addEventListener('click', toggleMobileMenu);
+if (container) {
+    // 1. Scene & Camera
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+    camera.position.z = 5;
+    camera.position.y = 0;
 
-mobileNavLinks.forEach(link => {
-    link.addEventListener('click', () => {
-        toggleMobileMenu();
-        const target = document.querySelector(link.getAttribute('href'));
-        if (target) {
-            setTimeout(() => {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 400);
-        }
-    });
-});
+    // 2. Renderer
+    const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+    renderer.setSize(container.clientWidth, container.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    container.appendChild(renderer.domElement);
 
-// === Cursor Glow Effect ===
-document.addEventListener('mousemove', (e) => {
-    const cursorGlow = document.querySelector('.cursor-glow');
-    cursorGlow.style.left = e.clientX + 'px';
-    cursorGlow.style.top = e.clientY + 'px';
-});
+    // 3. Lighting
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
 
-// === Smooth Scroll for Navigation ===
-document.querySelectorAll('.nav-link, .primary-btn, .secondary-btn').forEach(link => {
-    link.addEventListener('click', function (e) {
-        if (this.getAttribute('href')?.startsWith('#')) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    const spotLight = new THREE.SpotLight(0xffffff, 20);
+    spotLight.position.set(2, 5, 5);
+    scene.add(spotLight);
+
+    const rimLight = new THREE.PointLight(0xffffff, 10);
+    rimLight.position.set(-2, 2, -2);
+    scene.add(rimLight);
+
+    // 4. Load Drone GLB
+    const loader = new GLTFLoader();
+    let drone = null;
+    let mixer = null;
+
+    loader.load(
+        'medium_-_cute_robo-drone.glb',
+        (gltf) => {
+            drone = gltf.scene;
+
+            // === INITIAL POSITION: RIGHT SIDE (HERO) ===
+            // Start visible and safe
+            drone.scale.set(1.5, 1.5, 1.5);
+            drone.position.set(2.2, -0.5, 0);
+            drone.rotation.set(0, -0.1, 0);
+
+            if (gltf.animations.length) {
+                mixer = new THREE.AnimationMixer(drone);
+                gltf.animations.forEach(clip => mixer.clipAction(clip).play());
             }
-        }
+
+            scene.add(drone);
+            console.log("DRONE ACTIVE AND READY");
+
+            // === SCROLL ANIMATION TIMELINE ===
+            setupScrollAnimation(drone);
+        },
+        undefined,
+        (error) => console.error('ERROR:', error)
+    );
+
+    // 5. Scroll Interaction (GSAP) - FINAL ZIG ZAG & ROTATION
+    function setupScrollAnimation(model) {
+        if (!model) return;
+
+        // Force reset
+        model.position.set(2.2, -0.5, 0);
+        model.rotation.set(0, -0.1, 0);
+
+        // MASTER TIMELINE
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".scrolly-container",
+                start: "top top",
+                end: "bottom bottom",
+                scrub: 1.5,
+            }
+        });
+
+        // 1. HERO (Right) -> VERIFICATION (Fly LEFT)
+        // Sec 1 Text is Right. Drone goes LEFT.
+        // Left Side needs POSITIVE rotation to look Right (Center).
+        tl.to(model.position, {
+            x: -2.2,  // Safe Visible Left
+            y: 0.2,
+            z: 0.5,
+            duration: 1,
+            ease: "power2.inOut"
+        }, "sec1")
+            .to(model.rotation, {
+                y: 0.3,   // Look RIGHT (Towards Text) -> FIXED
+                z: -0.1,
+                duration: 1
+            }, "sec1");
+
+        // 2. VERIFICATION (Left) -> SALES (Fly RIGHT)
+        // Sec 2 Text is Left. Drone goes RIGHT.
+        // Right Side needs NEGATIVE rotation to look Left (Center).
+        tl.to(model.position, {
+            x: 2.2,   // Safe Visible Right
+            y: 0,
+            z: 0.5,
+            duration: 1,
+            ease: "power2.inOut"
+        }, "sec2")
+            .to(model.rotation, {
+                y: -0.3,   // Look LEFT (Towards Text) -> FIXED
+                z: 0.1,
+                duration: 1
+            }, "sec2");
+
+        // 3. SALES (Right) -> WEBSITES (Fly LEFT)
+        // Sec 3 Text is Right. Drone goes LEFT.
+        // Left Side needs POSITIVE rotation.
+        tl.to(model.position, {
+            x: -2.2,  // Safe Visible Left
+            y: 0,
+            z: 0.8,
+            duration: 1,
+            ease: "power2.inOut"
+        }, "sec3")
+            .to(model.rotation, {
+                y: 0.3,  // Look RIGHT (Towards Text) -> FIXED
+                z: -0.1,
+                duration: 1
+            }, "sec3");
+
+        // 4. WEBSITES (Left) -> PLANS (Fly Right Side - Companion)
+        tl.to(model.position, {
+            x: 2.2,
+            y: -0.2,
+            z: 1.0,
+            duration: 1,
+            ease: "power2.inOut"
+        }, "sec4")
+            .to(model.rotation, {
+                y: -0.2,
+                x: 0,
+                z: 0,
+                duration: 1
+            }, "sec4");
+
+        console.log("Timeline Setup Complete");
+    }
+
+    // 6. Animation Loop
+    const clock = new THREE.Clock();
+
+    function animate() {
+        requestAnimationFrame(animate);
+        const delta = clock.getDelta();
+        if (mixer) mixer.update(delta);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // 7. Resize logic
+    window.addEventListener('resize', () => {
+        camera.aspect = container.clientWidth / container.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(container.clientWidth, container.clientHeight);
     });
-});
 
-// === Active Navigation Highlight ===
-window.addEventListener('scroll', () => {
-    const sections = document.querySelectorAll('section[id]');
-    const scrollY = window.pageYOffset;
+    // 8. Navigation Active State
+    // DISABLED for Multi-Page Structure (Pages have hardcoded active states)
+    /*
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.dock-icon');
 
-    sections.forEach(section => {
-        const sectionHeight = section.offsetHeight;
-        const sectionTop = section.offsetTop - 100;
-        const sectionId = section.getAttribute('id');
+    const observerOptions = {
+        threshold: 0.5
+    };
 
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-                if (link.getAttribute('href') === `#${sectionId}`) {
-                    link.classList.add('active');
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active from all
+                navLinks.forEach(link => link.classList.remove('active'));
+
+                // Add active to current
+                const id = entry.target.getAttribute('id');
+                let targetHref = `#${id}`;
+
+                // Map missing sections to "Serviços" (verification)
+                if (id === 'sales' || id === 'websites') {
+                    targetHref = '#verification';
                 }
-            });
-        }
-    });
 
-    // Back to Top Button visibility
-    const backToTop = document.querySelector('.back-to-top');
-    if (scrollY > 500) {
-        backToTop?.classList.add('visible');
-    } else {
-        backToTop?.classList.remove('visible');
-    }
-
-    // Navbar background on scroll
-    const navbar = document.querySelector('.navbar');
-    if (scrollY > 50) {
-        navbar.style.background = 'rgba(10, 10, 15, 0.95)';
-    } else {
-        navbar.style.background = 'rgba(10, 10, 15, 0.8)';
-    }
-});
-
-// === Back to Top Button ===
-document.querySelector('.back-to-top')?.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// === Animated Counter for Stats ===
-function animateCounter(element, target) {
-    let count = 0;
-    const increment = target / 50;
-    const timer = setInterval(() => {
-        count += increment;
-        if (count >= target) {
-            element.textContent = target;
-            clearInterval(timer);
-        } else {
-            element.textContent = Math.floor(count);
-        }
-    }, 30);
-}
-
-// === Intersection Observer for Scroll Animations ===
-const observerOptions = {
-    threshold: 0.2,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const scrollObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-
-            // Animate counters
-            if (entry.target.classList.contains('stat-number') && !entry.target.classList.contains('counted')) {
-                const target = parseInt(entry.target.getAttribute('data-target'));
-                animateCounter(entry.target, target);
-                entry.target.classList.add('counted');
+                const activeLink = document.querySelector(`.dock-icon[href="${targetHref}"]`);
+                if (activeLink) {
+                    activeLink.classList.add('active');
+                }
             }
-        }
-    });
-}, observerOptions);
-
-// Observe all stat numbers
-document.querySelectorAll('.stat-number').forEach(counter => {
-    scrollObserver.observe(counter);
-});
-
-// Add animation classes to elements
-document.addEventListener('DOMContentLoaded', () => {
-    // Service cards
-    document.querySelectorAll('.service-card').forEach((card, index) => {
-        card.classList.add('fade-in-up');
-        card.style.transitionDelay = `${index * 0.1}s`;
-        scrollObserver.observe(card);
-    });
-
-    // Portfolio cards
-    document.querySelectorAll('.project-card').forEach((card, index) => {
-        card.classList.add('fade-in-up');
-        card.style.transitionDelay = `${index * 0.15}s`;
-        scrollObserver.observe(card);
-    });
-
-    // Section headers
-    document.querySelectorAll('.section-header').forEach(header => {
-        header.classList.add('fade-in-up');
-        scrollObserver.observe(header);
-    });
-
-    // Hero content
-    const heroContent = document.querySelector('.hero-content');
-    if (heroContent) {
-        heroContent.classList.add('fade-in-left');
-        scrollObserver.observe(heroContent);
-    }
-
-    // Hero visual
-    const heroVisual = document.querySelector('.hero-visual');
-    if (heroVisual) {
-        heroVisual.classList.add('fade-in-right');
-        scrollObserver.observe(heroVisual);
-    }
-});
-
-// === Particles Animation ===
-function createParticles() {
-    const container = document.getElementById('particles-container');
-    const particleCount = 50;
-
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.cssText = `
-            position: absolute;
-            width: 2px;
-            height: 2px;
-            background: rgba(0, 217, 255, 0.5);
-            border-radius: 50%;
-            left: ${Math.random() * 100}%;
-            top: ${Math.random() * 100}%;
-            animation: float-particle ${5 + Math.random() * 10}s linear infinite;
-            animation-delay: ${Math.random() * 5}s;
-        `;
-        container.appendChild(particle);
-    }
-}
-
-// Add particle float animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes float-particle {
-        0% { transform: translateY(0) translateX(0); opacity: 0; }
-        10% { opacity: 1; }
-        90% { opacity: 1; }
-        100% { transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px); opacity: 0; }
-    }
-`;
-document.head.appendChild(style);
-
-createParticles();
-
-// === Form Submission ===
-const contactForm = document.querySelector('.contact-form');
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-
-        const formData = new FormData(contactForm);
-        const submitBtn = contactForm.querySelector('.submit-btn');
-        const originalText = submitBtn.innerHTML;
-
-        submitBtn.innerHTML = '<span>Enviando...</span>';
-        submitBtn.disabled = true;
-
-        setTimeout(() => {
-            submitBtn.innerHTML = '<span>Enviado! ✓</span>';
-            submitBtn.style.background = 'linear-gradient(135deg, #00ff88, #00cc66)';
-
-            setTimeout(() => {
-                contactForm.reset();
-                submitBtn.innerHTML = originalText;
-                submitBtn.disabled = false;
-                submitBtn.style.background = '';
-            }, 2000);
-        }, 1500);
-    });
-}
-
-// === Service Card Tilt Effect ===
-document.querySelectorAll('[data-tilt]').forEach(card => {
-    card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-    });
-});
-
-// === CTA Button Actions ===
-document.querySelectorAll('.cta-button, .primary-btn').forEach(btn => {
-    if (!btn.getAttribute('href')) {
-        btn.addEventListener('click', () => {
-            document.querySelector('#services').scrollIntoView({ behavior: 'smooth' });
         });
-    }
-});
+    }, observerOptions);
 
-document.querySelectorAll('.secondary-btn, .mobile-cta-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-        const href = btn.getAttribute('href');
-        // Only scroll if it's not an external link
-        if (!href || href.startsWith('#') || href.startsWith('javascript')) {
-            e.preventDefault();
-            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
-        }
-    });
-});
-
-// === Portfolio Button ===
-document.querySelector('.portfolio-btn')?.addEventListener('click', () => {
-    document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
-});
-
-// === FAQ Accordion ===
-document.querySelectorAll('.faq-question').forEach(button => {
-    button.addEventListener('click', () => {
-        const faqItem = button.parentElement;
-        const isActive = faqItem.classList.contains('active');
-
-        // Close all other FAQs
-        document.querySelectorAll('.faq-item').forEach(item => {
-            item.classList.remove('active');
-        });
-
-        // Toggle current FAQ
-        if (!isActive) {
-            faqItem.classList.add('active');
-        }
-    });
-});
-
-// === Console Message ===
-console.log('%c🚀 SERVER DEV - Website Loaded Successfully!', 'color: #00d9ff; font-size: 20px; font-weight: bold;');
-console.log('%cBots • Sites • Servidores', 'color: #0099ff; font-size: 14px;');
-console.log('%c✨ Com Loading Screen, Menu Mobile, Scroll Animations & Mais!', 'color: #00ff88; font-size: 12px;');
+    sections.forEach(section => observer.observe(section));
+    */
+}
